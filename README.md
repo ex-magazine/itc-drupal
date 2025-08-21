@@ -1,8 +1,8 @@
 ## Prerequisites
-Web Server: Apache or Nginx.
-PHP: Version 8.3 or higher.
-Database: MySQL/MariaDB (5.7.8+), PostgreSQL (10+), or SQLite (3.26+).
-Composer: For managing Drupal's dependencies.
+* Web Server: Apache or Nginx.
+* PHP: Version 8.3 or higher.
+* Database: MySQL/MariaDB (5.7.8+), PostgreSQL (10+), or SQLite (3.26+).
+* Composer: For managing Drupal's dependencies.
 
 ## WampServer
 See the [WampServer](https://www.wampserver.com/en/category/documentation-en/) 
