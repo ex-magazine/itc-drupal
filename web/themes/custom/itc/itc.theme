@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * Contains itc theme override and preprocess functions.
+ */
+
+use Drupal\file\Entity\File;
+
+/**
+ * Sanitise input urls.
+ */
+function santise_val_url($url) {
+	if ($url != '') {
+
+		// Sanitise (remove all illegal characters) from url.
+		$url = filter_var($url, FILTER_SANITIZE_URL);
+
+		// Validate url.
+		if (filter_var($url, FILTER_VALIDATE_URL) == TRUE) {
+			$url = $url;
+		} else {
+			$url = '#';
+		}
+		return $url;
+	}
+}
+
+/**
+ * itc page preprocess.
+ * Define variables for theme settings.
+ */
+function itc_preprocess_page(array &$variables) {
+	$config = \Drupal::config('system.site');
+	$variables['site_name'] = $config->get('name');
+	$variables['site_slogan'] = $config->get('slogan');
+
+}
+
+/* *
+ * Node preprocess.
+ */
+function itc_preprocess_node(array &$variables) {
+	$variables['node_author_pic'] = theme_get_setting('node_author_pic', 'itc');
+	$variables['node_tags'] = theme_get_setting('node_tags', 'itc');
+}
+
+/**
+ * Html preprocess for itc theme.
+ * Adds body classes if certain regions have content.
+ * Used for creating different page layout.
+ */
+function itc_preprocess_html(&$variables) {
+  $variables['base_path'] = base_path();
+  $variables['google_font'] = theme_get_setting('google_font', 'itc');
+  // Add variables for theme Settings
+  $variables['css_extra'] = theme_get_setting('css_extra', 'itc');
+  $variables['css_code'] = theme_get_setting('css_code', 'itc');
+	$variables['slider_show'] = theme_get_setting('slider_show', 'itc');
+  $variables['slider_time'] = theme_get_setting('slider_time', 'itc');
+  $variables['slider_dots'] = theme_get_setting('slider_dots', 'itc');
+	$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+	// Slider image
+	$variables['slider_image'] = theme_get_setting('slider_image', 'itc');
+	$slider_image_id = theme_get_setting('slider_image', 'itc');
+	if(!empty($slider_image_id)) {
+		$slider_image_file = File::load($slider_image_id[0]);
+		$slider_image_file->setPermanent();
+		$slider_image_file->save();
+		$slider_image_file_usage = \Drupal::service('file.usage');
+		$slider_image_file_usage->add($slider_image_file, 'itc', 'theme', $slider_image_id[0]);
+	};
+	if(!empty($slider_image_file)) {
+    $imageuri = $slider_image_file->getFileUri();
+		$variables['slider_image_path'] = \Drupal::service('file_url_generator')->generateAbsoluteString($imageuri);
+	};
+}
+
+/* *
+ * Add current page to breadcrumb.
+ */
+function itc_preprocess_breadcrumb(&$variables) {
+	$request = \Drupal::request();
+	$route_match = \Drupal::routeMatch();
+	$page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+	if (!empty($page_title)) {
+		$variables['breadcrumb'][] = [
+			'text' => $page_title,
+		];
+		// Add cache context based on url.
+		$variables['#cache']['contexts'][] = 'url';
+	}
+}
+/**
+ * Implements THEME_preprocess_HOOK() for system messages block.
+ * 10.3 upgrade now missing status-message theme suggestions
+ * and outputs multiple messages on page load.
+ * see https://www.drupal.org/project/drupal/issues/3456176
+ */
+use Drupal\Core\Render\Element\StatusMessages;
+
+function itc_preprocess_block__system_messages_block(&$variables) {
+  	$variables['content'] = StatusMessages::renderMessages();
+	$variables['#cache']['max-age'] = 0;
+}

@@ -1,0 +1,41 @@
+<section id="last-section" class="last-section"></section>
+<!-- Start: Footer -->
+<footer id="footer">  
+  <div class="container">
+    {% if page.footer_top %}
+      <section class="footer-top">
+        {{ page.footer_top }}
+      </section>
+    {% endif %}<!-- /footer-top -->
+    {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
+      <section class="footer-blocks">
+      {% if page.footer_first %}
+        <div class="footer-block">
+          {{ page.footer_first }}
+        </div>
+      {% endif %}<!--/footer-first -->
+      {% if page.footer_second %}
+        <div class="footer-block">
+          {{ page.footer_second }}
+        </div>
+      {% endif %}<!--/footer-second -->
+      {% if page.footer_third %}
+        <div class="footer-block">
+          {{ page.footer_third }}
+        </div>
+      {% endif %}<!--/footer-third -->
+      {% if page.footer_fourth %}
+        <div class="footer-block">
+          {{ page.footer_fourth }}
+        </div>
+      {% endif %}<!--/footer-fourth -->
+      </section> <!--/footer-blocks -->
+    {% endif %} {# end if for footer one, two, three, four blocks #}    
+    {% if page.footer_bottom %}
+      <div class="footer-bottom">
+        {{ page.footer_bottom }}
+      </div> <!--/.footer-bottom -->
+    {% endif %} <!-- end condition for footer_bottom -->
+  </div><!-- /.container -->
+</footer>
+
