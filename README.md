@@ -19,16 +19,16 @@ Checkout the project and run the following commands from project root:
 * `ddev auth ssh`
 
 ### Import DB
-ddev import-db --file=itc-db.sql
+* `ddev import-db --file=itc-db.sql`
 
 ### Export DB
-ddev export-db --gzip=false --file=itc-db.sql
+* `ddev export-db --gzip=false --file=itc-db.sql`
 
 ### Login to Drupal Admin
 
-https://itc-local.site/user/login
-U:admin
-P:admin
+* https://itc-local.site/user/login
+* U:admin
+* P:admin
 
 ### Login to Drupal Admin using drush
 * `vendor/bin/drush uli`
