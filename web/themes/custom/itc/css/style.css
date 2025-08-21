@@ -3641,13 +3641,9 @@ div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-with
   color: #171717;
   padding: 0.5rem;
 }
-.fixed-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; 
-}
 #header{
-  transition: top .3s ease-in-out;
+  position: sticky;
+  top: 0; 
+  z-index: 1000; 
+  background-color: #fff;
 }
