@@ -59,20 +59,11 @@
     {{ page }}
     {{ page_bottom }}
     {% if google_font == 'googlecdn' %}
-      {{ attach_library('ITC/googlefontscdn') }}
+      {{ attach_library('itc/googlefontscdn') }}
     {% elseif google_font == 'local' %}
-      {{ attach_library('ITC/googlefontslocal') }}
+      {{ attach_library('itc/googlefontslocal') }}
     {% endif %}
     <js-bottom-placeholder token="{{ placeholder_token|raw }}">
-{% include '@itc/template-parts/settings.html.twig' %}
-{% if slider_show and is_front %}	
-<script>
-jQuery(".js-rotating").Morphist({
-  animateIn: 'fadeInUp',
-  animateOut: 'fadeOutLeft',
-});
-</script>
-{% endif %}
 
   </body>
 </html>
